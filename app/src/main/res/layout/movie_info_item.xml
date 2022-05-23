@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <!-- Poster Image -->
+    <ImageView
+        android:id="@+id/iv_movie_poster"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_marginVertical="10dp"/>
+
+    <!-- Movie Information -->
+    <LinearLayout
+        android:id="@+id/tv_movie_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingVertical="16dp"
+        android:paddingHorizontal="10dp">
+
+        <TextView
+            android:id="@+id/tv_movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/title"/>
+
+        <!-- Movie Rating Layout -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <RatingBar
+                android:id="@+id/movie_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="0"
+                android:stepSize="0.5"/>
+
+            <TextView
+                android:id="@+id/tv_movie_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/zero_rating"/>
+
+        </LinearLayout>
+        <!-- Movie Rating Layout -->
+
+        <TextView
+            android:id="@+id/tv_movie_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pubData"/>
+
+        <TextView
+            android:id="@+id/tv_movie_director"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/director"/>
+
+        <TextView
+            android:id="@+id/tv_actor_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/actor"/>
+
+    </LinearLayout>
+
+</LinearLayout>

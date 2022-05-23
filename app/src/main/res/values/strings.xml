@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">김지원 과제</string>
+    <string name="search">검색</string>
+    <string name="input_title">영화 제목을 검색해보세요.</string>
+    <string name="title">%s</string>
+    <string name="pubData">개봉연도</string>
+    <string name="director">영화감독</string>
+    <string name="actor">출연배우</string>
+    <string name="zero_rating">0.0</string>
+</resources>
