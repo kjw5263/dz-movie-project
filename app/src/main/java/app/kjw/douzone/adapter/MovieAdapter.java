@@ -79,8 +79,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
          * */
         public void setItem(Item result){
 
-            this.url = result.getLink();
-
             // 포스터 이미지 없을 때, no_image 아이콘 설정
             if(result.getImage().equals("")) posterImage.setImageResource(R.drawable.ic_no_image);
             else Glide.with(itemView).load(result.getImage()).into(posterImage);
