@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import app.kjw.douzone.adapter.MovieAdapter;
 import app.kjw.douzone.data.MovieResult;
@@ -21,13 +22,14 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    /* View 선언 */
+    /* View */
     private RecyclerView recyclerView;
     private EditText searchTitle;
     private Button searchBtn;
-    private MovieAdapter adapter;
-    private RetrofitService retrofitService = null;
 
+    private MovieAdapter adapter;
+
+    private RetrofitService retrofitService = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         init();
-
-
     }
 
     /**
@@ -48,11 +48,15 @@ public class MainActivity extends AppCompatActivity {
         searchTitle = findViewById(R.id.input_movie_name);
         searchBtn = findViewById(R.id.search_btn);
 
-        // 레트로핏 Init
+        // 레트로핏 인스턴스 가져오기
         retrofitService = RetrofitInstance.getRetrofitService();
 
         // 검색버튼 클릭 이벤트
-        searchBtn.setOnClickListener(view -> searchMovie(searchTitle.getText().toString()));
+        searchBtn.setOnClickListener(view -> {
+            if(searchTitle.getText().toString().isEmpty())
+                Toast.makeText(MainActivity.this, "검색어를 입력하세요.", Toast.LENGTH_SHORT).show();
+            else searchMovie(searchTitle.getText().toString());
+        });
     }
 
     /**
@@ -60,18 +64,19 @@ public class MainActivity extends AppCompatActivity {
      * @param movieTitle 검색할 영화제목*/
     public void searchMovie(String movieTitle) {
 
-        Log.i(TAG, movieTitle);
-
         retrofitService.getMovieList(movieTitle).enqueue(new Callback<MovieResult>() {
             @Override
             public void onResponse(Call<MovieResult> call, Response<MovieResult> response) {
-                if(response.isSuccessful()){        // 연결 성공 시
+                if(response.isSuccessful()){        // 검색 성공 시
+
+                    // 제목에 해당하는 영화 없을 때(결과 개수가 0개) 토스트 메시지
+                    if(response.body().getTotal() == 0)
+                        Toast.makeText(MainActivity.this, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show();
+
                     adapter = new MovieAdapter(response.body().getItems(), MainActivity.this);
                     recyclerView.setAdapter(adapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
 
-                } else {                            // 연결 실패 시
-                    Log.i(TAG, response.errorBody().toString());
                 }
             }
 
